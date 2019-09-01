@@ -29,7 +29,7 @@ class NetworkProvider extends React.Component {
             s.search = this.props.settings.search;
             s.searchColumns = this.props.settings.searchColumns.join('&searchColumns=');
         }
-        
+
         const qs = buildQueryString(s);
         const requestUrl = urlJoin(this.props.url, `?${qs}`);
 
