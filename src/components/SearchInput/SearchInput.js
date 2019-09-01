@@ -20,11 +20,11 @@ const SearchInput = (props) => {
                                     value={searchInput}
                                     onChange={onChangeSearchInput}
                                     label={"جستجو"}
-                                    disabled={loading}
                                     InputProps={{
                                         endAdornment: loading && (
                                             <CircularProgress size={20}/>
-                                        )
+                                        ),
+                                        readOnly: loading,
                                     }}
                                     {...otherProps}
                                 />

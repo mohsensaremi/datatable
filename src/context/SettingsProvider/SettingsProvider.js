@@ -11,6 +11,7 @@ class SettingsProvider extends React.Component {
         limit: this.props.limit || 25,
         search: '',
         searchInput: '',
+        searchColumns: this.props.searchColumns || [],
         // forwardPaging: false,
         // backwardPaging: false,
         // searchState: false,
