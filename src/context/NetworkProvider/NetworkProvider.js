@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {NetworkContext} from '../index';
 import pick from "lodash/pick";
+import {shallowEqual} from 'recompose';
 
 class NetworkProvider extends React.Component {
 
@@ -50,7 +51,8 @@ class NetworkProvider extends React.Component {
             this.props.settings.order !== prevProps.settings.order ||
             this.props.settings.skip !== prevProps.settings.skip ||
             this.props.settings.limit !== prevProps.settings.limit ||
-            this.props.settings.search !== prevProps.settings.search
+            this.props.settings.search !== prevProps.settings.search ||
+            !shallowEqual(prevProps.query, this.props.query)
         ) {
             this.request();
         }

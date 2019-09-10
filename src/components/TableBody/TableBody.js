@@ -9,6 +9,7 @@ const TableBody = (props) => {
     const {
         classes,
         columns,
+        rowClassName,
     } = props;
 
     return (
@@ -25,7 +26,7 @@ const TableBody = (props) => {
                                         role="checkbox"
                                         tabIndex={-1}
                                         key={n.id}
-                                        className={index % 2 === 1 && classes.greyRow}
+                                        className={`${index % 2 === 1 && classes.greyRow} ${typeof rowClassName === 'function' && rowClassName(n, index)}`}
                                     >
                                         {
                                             columns.map(c => (

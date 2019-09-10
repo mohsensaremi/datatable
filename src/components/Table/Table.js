@@ -11,6 +11,8 @@ const Table = (props) => {
     const {
         classes,
         columns,
+        tableHeadProps,
+        tableBodyProps,
     } = props;
 
 
@@ -20,9 +22,11 @@ const Table = (props) => {
                 <MuiTable className={classes.table}>
                     <TableHead
                         columns={columns}
+                        {...tableHeadProps}
                     />
                     <TableBody
                         columns={columns}
+                        {...tableBodyProps}
                     />
                 </MuiTable>
             </div>
