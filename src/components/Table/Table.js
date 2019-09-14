@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useMemo} from 'react';
 import MuiTable from '@material-ui/core/Table';
 import TablePagination from '@material-ui/core/TablePagination';
 import Paper from '@material-ui/core/Paper';
@@ -13,13 +13,13 @@ const Table = (props) => {
         columns,
         tableHeadProps,
         tableBodyProps,
+        id,
     } = props;
-
 
     return (
         <Paper className={classes.root}>
             <div className={classes.tableWrapper}>
-                <MuiTable className={classes.table}>
+                <MuiTable className={classes.table} id={id}>
                     <TableHead
                         columns={columns}
                         {...tableHeadProps}
