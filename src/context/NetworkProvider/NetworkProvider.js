@@ -26,10 +26,18 @@ class NetworkProvider extends React.Component {
 
         return this.props.network(settings)
             .then(({data, total}) => {
-                this.setState({
-                    data,
-                    total,
-                    loading: false,
+                this.setState(state => {
+                    if (this.props.forwardPaging) {
+                        data = [...(state.data || []), ...data];
+                    }
+                    if (this.props.backwardPaging) {
+                        data = [...data, ...(state.data || [])];
+                    }
+                    return {
+                        data,
+                        total,
+                        loading: false,
+                    }
                 });
             }).catch(e => {
                 this.setState({
