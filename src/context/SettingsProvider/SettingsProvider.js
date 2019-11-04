@@ -1,8 +1,11 @@
 import React from 'react';
 import {SettingsContext} from '../index';
 import debounce from 'lodash/debounce';
+import pick from 'lodash/pick';
 
 class SettingsProvider extends React.Component {
+
+    initialState;
 
     state = {
         orderBy: this.props.orderBy || '_id',
@@ -11,6 +14,7 @@ class SettingsProvider extends React.Component {
         limit: this.props.limit || 25,
         search: '',
         searchInput: '',
+        forwardPaging: this.props.forwardPaging || false,
         // forwardPaging: false,
         // backwardPaging: false,
         // searchState: false,
@@ -22,7 +26,23 @@ class SettingsProvider extends React.Component {
         onClickSort: this.onClickSort.bind(this),
         onChangeSearch: this.onChangeSearch.bind(this),
         onChangeSearchInput: this.onChangeSearchInput.bind(this),
+        onReset: this.onReset.bind(this),
     };
+
+    componentDidMount() {
+        this.initialState = pick(this.state, [
+            'orderBy',
+            'order',
+            'skip',
+            'limit',
+            'search',
+            'searchInput',
+        ]);
+    }
+
+    onReset() {
+        this.setState(this.initialState);
+    }
 
     onNextPage() {
         this.setState(state => ({
@@ -67,8 +87,16 @@ class SettingsProvider extends React.Component {
     }
 
     onChangeSearchDebounced = debounce((e) => {
+        const value = e.target.value;
         this.setState({
-            search: e.target.value,
+            search: value,
+            skip: this.initialState.skip,
+            limit: this.initialState.limit,
+            searchState: true,
+        }, () => {
+            this.setState({
+                searchState: false,
+            })
         });
     }, 500);
 
