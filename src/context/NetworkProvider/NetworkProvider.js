@@ -17,6 +17,8 @@ class NetworkProvider extends React.Component {
         setQuery: this.setQuery.bind(this),
         unsetQuery: this.unsetQuery.bind(this),
         onReset: this.onReset.bind(this),
+        appendData: this.appendData.bind(this),
+        prependData: this.prependData.bind(this),
         error: null,
         hasMore: true,
     };
@@ -30,6 +32,24 @@ class NetworkProvider extends React.Component {
         if (this.props.requestOnMount) {
             this.request();
         }
+    }
+
+    appendData(data) {
+        this.setState(x => ({
+            data: [
+                ...x.data,
+                ...data,
+            ]
+        }));
+    }
+
+    prependData(data) {
+        this.setState(x => ({
+            data: [
+                ...data,
+                ...x.data,
+            ]
+        }));
     }
 
     onReset() {
@@ -65,7 +85,7 @@ class NetworkProvider extends React.Component {
         return this.props.network(settings)
             .then(({data, total}) => {
                 this.setState(state => {
-                    const hasMore= data.length > 0;
+                    const hasMore = data.length > 0;
                     if (!searchState) {
                         if (forwardPaging) {
                             data = [...(state.data || []), ...data];
