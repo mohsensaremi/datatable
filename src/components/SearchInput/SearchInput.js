@@ -24,7 +24,6 @@ const SearchInput = (props) => {
                                         endAdornment: loading && (
                                             <CircularProgress size={20}/>
                                         ),
-                                        readOnly: loading,
                                     }}
                                     {...otherProps}
                                 />
