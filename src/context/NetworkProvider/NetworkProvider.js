@@ -19,6 +19,7 @@ class NetworkProvider extends React.Component {
         onReset: this.onReset.bind(this),
         appendData: this.appendData.bind(this),
         prependData: this.prependData.bind(this),
+        createOrUpdateRecord: this.createOrUpdateRecord.bind(this),
         error: null,
         hasMore: true,
     };
@@ -50,6 +51,29 @@ class NetworkProvider extends React.Component {
                 ...x.data,
             ]
         }));
+    }
+
+    createOrUpdateRecord(record) {
+        const index = this.state.data.findIndex(x => x.id === record.id);
+        if (index >= 0) {
+            this.setState(x => ({
+                data: [
+                    ...x.data.slice(0, index),
+                    {
+                        ...x.data[index],
+                        ...record,
+                    },
+                    ...x.data.slice(index + 1),
+                ]
+            }));
+        } else {
+            this.setState(x => ({
+                data: [
+                    ...x.data,
+                    record,
+                ]
+            }));
+        }
     }
 
     onReset() {
