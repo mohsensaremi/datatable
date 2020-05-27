@@ -62,7 +62,7 @@ const TablePaginationActions = (props) => {
             }
         </NetworkContext.Consumer>
     );
-}
+};
 
 const Table = (props) => {
 
@@ -72,12 +72,13 @@ const Table = (props) => {
         tableHeadProps,
         tableBodyProps,
         id,
+        disableMinWidth,
     } = props;
 
     return (
         <div className={classes.root}>
             <div className={classes.tableWrapper}>
-                <MuiTable className={classes.table} id={id}>
+                <MuiTable className={`${classes.table} ${disableMinWidth ? classes.disableMinWidth : ""}`} id={id}>
                     <TableHead
                         columns={columns}
                         {...tableHeadProps}
