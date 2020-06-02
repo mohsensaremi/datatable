@@ -33,6 +33,17 @@ class NetworkProvider extends React.Component {
         if (this.props.requestOnMount) {
             this.request();
         }
+        if (this.props.refreshInterval) {
+            this.refreshInterval = setInterval(() => {
+                this.request();
+            }, this.props.refreshInterval);
+        }
+    }
+
+    componentWillUnmount() {
+        if (this.refreshInterval) {
+            clearInterval(this.refreshInterval);
+        }
     }
 
     appendData(data) {
